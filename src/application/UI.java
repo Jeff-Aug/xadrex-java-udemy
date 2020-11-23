@@ -17,13 +17,15 @@ public class UI {
 
 	
 	
-	public static void printPiece(ChessPiece pieces) {
+	
+	
+	//responsavel por imprimir uma peça
+	private static void printPiece(ChessPiece piece) {
 		
-		
-		if (pieces == null) {
+		if (piece == null) {
 			System.out.print("-");
 		}else {
-			System.out.println(pieces);
+			System.out.print(piece);
 		}
 		System.out.print(" ");
 		

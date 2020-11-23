@@ -40,7 +40,13 @@ public class Board {
 		return pieces[position.getLinha()][position.getColuna()];
 	}
 
-
+	public void placePiece (Piece piece,Position position) {//recebe uma poeça e uma posição
+		pieces[position.getLinha()][position.getColuna()] =piece;
+		piece.position = position;
+		
+		
+		
+	}
 
 
 }
