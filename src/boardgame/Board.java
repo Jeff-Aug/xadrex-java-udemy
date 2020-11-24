@@ -10,7 +10,7 @@ public class Board {
 
 	public Board(int linhas, int colunas) {
 		if(linhas <1 || colunas <1 ) {
-			throw new BoardException("Erro na criação do tabuleiro : Deve haver a necessidade de pelos menos uma (1) linha e uma (1) coluna ");
+			throw new BoardException("Erro na criação do tabuleiro : Deve haver necessariamente pelos menos uma (1) linha e uma (1) coluna ");
 			
 		}
 		this.linhas = linhas;
@@ -62,9 +62,29 @@ public class Board {
 		pieces[position.getLinha()][position.getColuna()] = piece;
 		piece.position = position;
 		
+		}
 		
 		
-	}
+		public Piece removePiece(Position position){
+			if (!positionExists(position)){
+								
+				throw new BoardException("Posição não existe");
+			}
+			if(piece(position)==null) {
+				return null;
+			}
+			Piece aux = piece(position);
+			aux.position = null;
+			
+			pieces[position.getLinha()][position.getColuna()] = null;
+			return aux;
+			
+			
+			
+		}
+		
+		
+	
 	
 //////////////////////////////////////////////////
 	public boolean positionExists(int row ,int column) {
