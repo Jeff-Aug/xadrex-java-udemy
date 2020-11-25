@@ -16,4 +16,12 @@ public class King extends ChessPiece {
 		return "K";
 	}
 
+	@Override
+	public boolean[][] possibleMoves() {
+		// TODO Auto-generated method stub
+		boolean[][] mat = new boolean[getBoard().getLinhas()][getBoard().getColunas()];
+		
+		return mat;
+	}
+
 }

@@ -42,7 +42,7 @@ public class ChessMatch {
 		
 		validateSourcePosition(source);
 		
-		Piece capturedPiece = makeMove(source,target );
+		Piece capturedPiece = makeMove(source,target);
 		
 		return (ChessPiece)capturedPiece;
 	}
@@ -67,7 +67,10 @@ public class ChessMatch {
 			
 			throw new ChessException("Não existe peça na posição de origem");
 		}
-		
+		//movimentos possiveis
+		if (!board.piece(position).isThereAnyPossibleMove()) {
+			throw new ChessException("Nao existe movimentos possivveis para a peça escolhida");
+		}
 		
 		
 	}
