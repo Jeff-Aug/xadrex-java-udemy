@@ -20,10 +20,10 @@ public class ChessMatch {
 	}
 	
 	public ChessPiece[][] getPieces(){//retorna uma matriz correspondente a partida de xadrez
-		ChessPiece[][] mat = new ChessPiece[board.getLinhas()][board.getColunas()];
+		ChessPiece[][] mat = new ChessPiece[board.getRows()][board.getColumns()];
 		
-		for (int i = 0; i < board.getLinhas(); i++) {
-			for (int j = 0; j < board.getColunas(); j++) {
+		for (int i = 0; i < board.getRows(); i++) {
+			for (int j = 0; j < board.getColumns(); j++) {
 				mat[i][j] = (ChessPiece) board.piece(i,j);//retorna uma peça de xadrez
 			}
 			
@@ -40,7 +40,10 @@ public class ChessMatch {
 		Position source = sourcePosition.toPosition();
 		Position target = targetPosition.toPosition();
 		
-		validateSourcePosition(source);
+		validateSourcePosition(source);//validado posição de origem
+		
+		
+		validateTargetPosition(source, target);
 		
 		Piece capturedPiece = makeMove(source,target);
 		
@@ -76,6 +79,17 @@ public class ChessMatch {
 	}
 	
 	
+	
+	private void validateTargetPosition(Position source,Position target) {//validação da posição de destino com relação a posiçao origem
+		
+		if(!board.piece(source).possibleMove(target)) {
+			throw new ChessException("A peça escolhida não pode ser movida para a posiçao de destino");
+		}
+		
+		
+		
+	}
+	
 	private void placeNewPiece(char column , int row, ChessPiece piece) {
 		
 		board.placePiece(piece, (new ChessPosition(column, row).toPosition()));
@@ -95,7 +109,7 @@ public class ChessMatch {
         placeNewPiece('d', 7, new Rook(board, Color.BLACK));
         placeNewPiece('e', 7, new Rook(board, Color.BLACK));
         placeNewPiece('e', 8, new Rook(board, Color.BLACK));
-        placeNewPiece('d', 8, new King(board, Color.BLACK));
+        placeNewPiece('h', 8, new King(board, Color.BLACK));
 		
 	}
 	

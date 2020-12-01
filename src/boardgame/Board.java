@@ -3,8 +3,8 @@ package boardgame;
 public class Board {
 	
 	
-	private int linhas;
-	private int colunas;
+	private int rows;
+	private int columns;
 	
 	private Piece[][] pieces;
 
@@ -13,20 +13,20 @@ public class Board {
 			throw new BoardException("Erro na criação do tabuleiro : Deve haver necessariamente pelos menos uma (1) linha e uma (1) coluna ");
 			
 		}
-		this.linhas = linhas;
-		this.colunas = colunas;
+		this.rows = linhas;
+		this.columns = colunas;
 		
 		pieces = new Piece[linhas][colunas];
 	}
 
 	
-	public int getLinhas() {
-		return linhas;
+	public int getRows() {
+		return rows;
 	}
 
 	
-	public int getColunas() {
-		return colunas;
+	public int getColumns() {
+		return columns;
 	}
 
 	
@@ -47,7 +47,7 @@ public class Board {
 		if(!positionExists(position)) {
 			throw new BoardException("Esta posição é invalidade ou ja encontra uma peça");
 		}
-		return pieces[position.getLinha()][position.getColuna()];
+		return pieces[position.getRow()][position.getColumn()];
 	}
 	
 	
@@ -59,7 +59,7 @@ public class Board {
 		if(thereIsPiece(position)) {
 			throw new BoardException("já encontra uma peça nessa posição");
 		}
-		pieces[position.getLinha()][position.getColuna()] = piece;
+		pieces[position.getRow()][position.getColumn()] = piece;
 		piece.position = position;
 		
 		}
@@ -76,7 +76,7 @@ public class Board {
 			Piece aux = piece(position);
 			aux.position = null;
 			
-			pieces[position.getLinha()][position.getColuna()] = null;
+			pieces[position.getRow()][position.getColumn()] = null;
 			return aux;
 			
 			
@@ -89,12 +89,12 @@ public class Board {
 //////////////////////////////////////////////////
 	public boolean positionExists(int row ,int column) {
 		
-		return row >= 0 && row < linhas && column >= 0 && column < colunas;
+		return row >= 0 && row < rows && column >= 0 && column < columns;
 		
 	}
 	public boolean positionExists(Position position) {
 		
-		return positionExists(position.getLinha(), position.getColuna());
+		return positionExists(position.getRow(), position.getColumn());
 		
 		
 	}

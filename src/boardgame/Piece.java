@@ -23,17 +23,17 @@ public abstract class Piece {
 		////possibilidade de movimento
 	public boolean possibleMove(Position position){
 		
-		return possibleMoves()[position.getLinha()] [position.getColuna()];
+		return possibleMoves()[position.getRow()] [position.getColumn()];
 		
 	}
 	
 	
 	//verificando a possibilidade de movimento
-	public boolean isThereAnyPossibleMove() {
+	public boolean isThereAnyPossibleMove() {//erifica se a peça esta presa ou nao
 		
 		boolean [][] mat = possibleMoves();
 		
-		for(int i=0 ; i < mat.length ; i++) {
+		for(int i=0 ; i < mat.length ; i++) {//verifica a possibilidade de movimento
 			for(int j=0 ; j < mat.length ; j++) {
 		
 				if (mat[i][j]) {

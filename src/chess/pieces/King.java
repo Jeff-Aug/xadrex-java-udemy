@@ -17,9 +17,10 @@ public class King extends ChessPiece {
 	}
 
 	@Override
-	public boolean[][] possibleMoves() {
-		// TODO Auto-generated method stub
-		boolean[][] mat = new boolean[getBoard().getLinhas()][getBoard().getColunas()];
+	public boolean[][] possibleMoves() {//por padrão todas as posição começa com falso
+
+
+		boolean[][] mat = new boolean[getBoard().getRows()][getBoard().getColumns()];
 		
 		return mat;
 	}
