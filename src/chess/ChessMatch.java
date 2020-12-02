@@ -9,15 +9,37 @@ import chess.pieces.King;
 import chess.pieces.Rook;
 
 public class ChessMatch {
-	
+	private Color currentPlayer;
 	private Board board;
 	
 	
+	private int turn;
+	
+	
+	
+	public int getTurn() {
+		return turn;
+	}
+	
+	
+
 	public ChessMatch() {
 		
 		board = new Board(8,8);
+		turn = 1;
+		currentPlayer = Color.WHITE;
 		initialSetup();
 	}
+	
+	
+
+	public Color getCurrentPlayer() {
+		return currentPlayer;
+	}
+
+	
+	
+	
 	
 	public ChessPiece[][] getPieces(){//retorna uma matriz correspondente a partida de xadrez
 		ChessPiece[][] mat = new ChessPiece[board.getRows()][board.getColumns()];
@@ -43,6 +65,14 @@ public class ChessMatch {
 	
 	
 	
+	private void nextTurn() {
+		
+		turn++;
+		currentPlayer = (currentPlayer == Color.WHITE) ? Color.BLACK : Color.WHITE; 
+		
+	}
+	
+	
 	//fica respossavel por mover as peças no tabuleiro
 	public ChessPiece performChessMove(ChessPosition sourcePosition,ChessPosition targetPosition) {
 		
@@ -55,7 +85,7 @@ public class ChessMatch {
 		validateTargetPosition(source, target);
 		
 		Piece capturedPiece = makeMove(source,target);
-		
+		nextTurn();
 		return (ChessPiece)capturedPiece;
 	}
 	
@@ -79,6 +109,13 @@ public class ChessMatch {
 			
 			throw new ChessException("Não existe peça na posição de origem");
 		}
+		
+		if(currentPlayer != ((ChessPiece)board.piece(position)).getColor()) {
+			
+			throw new ChessException("O movimento em questao nao eh seu");
+			
+		}
+		
 		//movimentos possiveis
 		if (!board.piece(position).isThereAnyPossibleMove()) {
 			throw new ChessException("Nao existe movimentos possivveis para a peça escolhida");
