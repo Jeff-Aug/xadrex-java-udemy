@@ -128,7 +128,9 @@ public class ChessMatch {
 	
 	private void undoMove(Position source,Position target,Piece capturedPiece) {
 		
-		Piece p = board.removePiece(target);
+		ChessPiece p =(ChessPiece) board.removePiece(target);
+		
+		p.descreaseMoveCount();
 		board.placePiece(p, source);//devolvendo para a posiçao de origem
 		
 		
@@ -149,7 +151,8 @@ public class ChessMatch {
 	
 	private Piece makeMove(Position source,Position target) {
 		
-		Piece p = board.removePiece(source);
+		ChessPiece p = (ChessPiece)board.removePiece(source);
+		p.increaseMoveCount();
 		Piece capturedPiece = board.removePiece(target);
 		
 		board.placePiece(p, target);
@@ -220,8 +223,8 @@ public class ChessMatch {
 	
 	private boolean testCheck(Color color) {//verifica se o rei desta cor estaa em check
 		
-		Position kingPosition =  king(color).getChessPosition().toPosition();//pegando a posiçãaao d o rei no formaato de matrix 
-		//verifica se o rei esta sob ameaça,verificando,peça por peca do oponente se vai de encontro ao rei(ou seja, toma a posião do rei) 
+		Position kingPosition =  king(color).getChessPosition().toPosition();//pegando a posição do rei no formaato de matrix 
+		//verifica se o rei esta sob ameaça,verificando peça por peca do oponente se vai de encontro ao rei(ou seja, toma a posião espacial do rrei) 
 		List<Piece> opponentPieces = piecesOnTheBoard.stream().filter(x -> ((ChessPiece)x).getColor() == opponent (color)).collect(Collectors.toList());
 		
 		
@@ -251,12 +254,12 @@ public class ChessMatch {
 			boolean[][] mat = p.possibleMoves();
 			for (int i = 0; i < board.getRows(); i++) {
 				for (int j = 0; j < board.getColumns(); j++) {
-					if(mat[i][j]) {
-						Position source =((ChessPiece)p).getChessPosition().toPosition();
+					if(mat[i][j]) {//essa peça apresenta um movimento possivel que vai de encontro com o  rei
+						Position source =((ChessPiece)p).getChessPosition().toPosition();//posição da peça p 
 						Position target = new Position(i, j);
-						Piece capturedPiece = makeMove(source,target);
-						boolean testCheck = testCheck(color);
-						undoMove(source, target, capturedPiece);
+						Piece capturedPiece = makeMove(source,target);//move a peça
+						boolean testCheck = testCheck(color);//testa se o rei esta em check
+						undoMove(source, target, capturedPiece);//desfaz o movimento da peça
 						if(!testCheck) {
 							return false;
 						}
